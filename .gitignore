@@ -1,0 +1,9 @@
+*
+!*/
+!/.github/**/*.yml
+!/.gitignore
+!/Makefile
+!/assets/**
+!/go.mod
+!/go.sum
+!/main.go
