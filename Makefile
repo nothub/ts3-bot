@@ -1,8 +1,8 @@
-OUT_DIR = out
-SERVER_DIR = server
-BIN_NAME = ts3-bot
 GOFLAGS = -race
 DOCKER = docker
+OUT_DIR = out
+SERVER_DIR = server
+MODULE = $(shell go list -m)
 
 help: ## available make tasks
 	@awk 'BEGIN {FS = ":.*##"; printf "targets:\n"} /^[$$()% 0-9a-zA-Z_-]+:.*?##/ { printf "  %-16s%s\n", $$1, $$2 } /^##@/ { printf "\n%s\n" } ' $(MAKEFILE_LIST)
@@ -21,10 +21,10 @@ lint: assets ## lint golang code
 	go vet
 
 build: assets ## build binary artifact
-	go build $(GOFLAGS) -o $(OUT_DIR)/$(BIN_NAME)
+	go build $(GOFLAGS) -o $(OUT_DIR)/$(MODULE)
 
 run: build ## run bot
-	./$(OUT_DIR)/$(BIN_NAME)
+	./$(OUT_DIR)/$(MODULE)
 
 server: ## run ts3 server
 	$(DOCKER) pull n0thub/ts3
